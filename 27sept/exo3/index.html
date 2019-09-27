@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Exo 3 : TP</title>
+    </head>
+    <body>
+        <h1>Exo 3 : TP</h1>
+        <button>Ajouter une note</button>
+        <button>Calculer la moyenne</button>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', () =>{
+                /* 
+                Déclarations
+                */
+                let notes = [];
+                    let addNoteBtn = document.querySelector('button:first-child');
+                    let moyenneBtn = document.querySelector('button:last-of-type');
+                //
+
+
+                /* 
+                Functions
+                */
+                    const addNote = () => {
+                        notes.push( +prompt('Ajoutez une note') );
+                        console.log(notes)
+                    }
+
+                    const getAmount = () => {
+                        let total = 0;
+                        
+                        for( let item of notes ){
+                            total += item
+                        }
+
+                        console.log( total / notes.length );
+                    }
+                //
+
+                /* 
+                Start IHM
+                */
+                    addNoteBtn.addEventListener('click', () => addNote());
+                    moyenneBtn.addEventListener('click', () => getAmount());
+                //
+            })
+        
+            
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Exo 2 : les boucles</title>
+    </head>
+    <body>
+        <h1>Exo 2 : les boucles</h1>
+        <script>
+        
+            // Déclaration
+            let hardSkills = ['HTML', 'CSS', 'JS'];
+            let softSkills = ['DJ', '3D'];
+
+            let  skills = [...hardSkills, ...softSkills];
+
+            // Boucle
+            let i = 0;
+            while( i < skills.length ){
+                console.log(skills[i]);
+
+                i++;
+            }
+
+            for( let i = 0; i < skills.length; i++ ){
+                console.log(skills[i]);
+            }
+
+            for( let item of skills ){
+                console.log(item)
+            }
+
+            skills.map( item => {
+                console.log(item)
+            })
+        </script>
+    </body>
+</html>

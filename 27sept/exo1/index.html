@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Exo 1 : déclaration de variables</title>
+    </head>
+    <body>
+        <h1>Exo 1 : déclaration de variables</h1>
+        <script>
+        
+            /* 
+            Délcaration de variable
+            */
+                // ES5
+                var myVar = 'Julien'; // String
+                
+                // ES6
+                let age = 40, name = 'Noyer';
+                const birthDate = 1979;
+            //
+
+            /* 
+            Styring templating
+            */
+                // ES5
+                let sayHello = 'Bonjour' + myVar + ' ' + name + ' vous avez ' + age + ' ans';
+
+                // ES6
+                let sayCiao = `
+                    <h2>
+                        Bonjour ${myVar} ${name} vouq avez ${age + 1 - 1} ans.
+                    </h2>
+                `;
+            //
+
+            /* 
+            Les fonctions
+            */
+                // ES5
+                function myFunction(){
+                    console.log(true)
+                };
+
+                var theFunction = function(){
+                    console.error(false)
+                }
+
+                // ES6
+                const hello = () => true;
+
+                const ciao = name => `Ciao ${name}`;
+                ciao('Marie');
+
+                const salut = (name = 'Pierre') => {
+                    console.log(`Salut ${name}`)
+                }
+                salut();
+                salut('Robert');
+
+                var test = function(name){
+                    name === undefined ? name = 'jean' : null;
+
+                    console.log(name);
+                };
+                test()
+
+                const userSkills = (user, ...skills) => {
+                    console.log({ user, skills })
+                }
+
+                userSkills('Julien', 'HTML', 'CSS', 'Javascript');
+                userSkills('Julien', 'HTML', 'CSS', 'Javascript', 'NodeJS');
+                userSkills('Julien', 'HTML');
+            //
+        </script>
+    </body>
+</html>
