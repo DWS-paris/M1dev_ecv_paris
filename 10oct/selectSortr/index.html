@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Trie par selection</title>
+    </head>
+    <body>
+        <script>
+            /* 
+            data: ARRAY<NUMBER>
+            dataSize: NUMBER
+            i: NUMBER
+            j: NUMBER
+            tmp: NUMBER
+            */
+                let data = [12, 0, 7, 29, 3];
+                console.log('Start', data);
+            //
+
+            /* 
+            FUNCTION sort(data)
+            */
+                const sort = (dataParam) => {
+
+                    /* 
+                    FOR i FROM 0 TO dataSize [ i <- i + 1 ] 
+                    */
+                        for( let i = 0; i < dataParam.length; i++ ){
+                            console.log('Sort', data);
+                            /* 
+                            FOR j FROM i + 1 TO dataSize [ j <- j + 1 ] 
+                            */
+                                for( let j = i + 1; j < dataParam.length; j++ ){
+                                    console.log('Sub sort', data);
+                                    /* 
+                                    IF data[j] < data[i] THEN
+                                    */
+                                        if(data[j] < data[i]){
+                                            // tmp <- data[i]
+                                            let tmp = data[i];
+                                            // data[i] <- data[j]
+                                            data[i] = data[j];
+                                            // data[j] <- tmp
+                                            data[j] = tmp;
+                                        }
+                                    //
+                                }
+                            //
+                        }
+                    //
+
+                }
+            //
+
+            sort(data)
+        </script>
+    </body>
+</html>

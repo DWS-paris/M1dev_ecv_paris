@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Exo 3</title>
+    </head>
+    <body>
+        <script>
+            // Declaration
+            let data = '123456789'; // => :Array<String>
+            let total = 0;
+            let result = '';
+
+            // Use the For loop
+            for( let i = 0; i < data.length; i++ ){
+                // Parse value in Integer and add it to total
+                total += parseInt(data[i]);
+                // Add value in result
+                result += `${data[i]}`;
+
+                // Check if current iteration isn't thee last one
+                i !== data.length - 1 
+                ? result += ' + ' // not the last one
+                : result += ' = '; // the last one
+            }
+
+            // Display result
+            console.log(result += total);
+        </script>
+    </body>
+</html>

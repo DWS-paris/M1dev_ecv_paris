@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Bubble sort Javascript</title>
+    </head>
+    <body>
+        
+        <script>
+            /* 
+            Déclaration
+            data: ARRAY<NUMBER>
+            dataSize: NUMBER
+            sorted: BOOLEANı
+            i: NUMBER
+            tmp: NUMBER
+            */
+                let data = [12, 0, 7, 29, 3];
+                let sorted = false;
+                console.log('Start', data)
+            //
+
+            /* 
+            WHILE sorted == False
+            */
+                while( sorted === false ){
+                    // sorted <- True
+                    sorted = true;
+
+                    /* 
+                    FOR i FROM 0 TO dataSize [ i <- i + 1 ] 
+                    */
+                        for( let i = 0; i < data.length; i++ ){
+                            /* 
+                            IF data[i] > data[i + 1] THEN
+                            */
+                                if( data[i] > data[i + 1] ){
+                                    // tmp <- data[1 +1]
+                                    let tmp = data[i + 1];
+
+                                    // data[i + 1] <- data[i]
+                                    data[i + 1] = data[i];
+
+                                    // data[i] <- tmp
+                                    data[i] = tmp; 
+
+                                    // sorted <- False
+                                    sorted = false;
+                                };
+                            //
+                        }
+
+                        console.log('Sort', data)
+                    //
+                }
+            //
+            console.log('End', data)
+        </script>
+
+    </body>
+</html>
