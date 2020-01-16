@@ -16,11 +16,14 @@
         </header>
 
         <main>
-            <section>
+            <section id="popin"></section>
+
+            <section id="formSection">
                 <h2>Ajouter un article</h2>
                 <form action="#" id="addPostForm">
                     <input type="text" name="title" id="title" required minlength="2">
                     <textarea name="content" id="content" required minlength="2"></textarea>
+                    <input type="number" id="idPostToEdit" hidden>
                     <button type="submit">Ajouter</button>
                 </form>
             </section>

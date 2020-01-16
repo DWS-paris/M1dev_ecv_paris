@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const addPostForm = document.querySelector('#addPostForm');
         const title = document.querySelector('#title');
         const content = document.querySelector('#content');
+        const popin = document.querySelector('#popin');
+        const idPostToEdit = document.querySelector('#idPostToEdit');
+        const formSectionTitle = document.querySelector('#formSection h2');
     //
 
 
@@ -19,14 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault();
 
                 if( title.value.length > 1 && content.value.length > 2){
-                    // Add post within the API
-                    fetchRequest( 'POST', 'posts', { title: title.value, content: content.value } )
-                    .then( data => {
-                        addPostForm.reset();
-                        displayPosts([data])
-                    } )
-                    .catch( err => console.error(err) )
+                    // Check for create or update
+                    if( idPostToEdit.value.length === 0 ){
+                        // Add post within the API
+                        fetchRequest( 'POST', 'posts', { title: title.value, content: content.value } )
+                        .then( apiResponse => {
+                            // Display new post
+                            displayPosts([apiResponse.data])
+                        } )
+                        .catch( err => console.error(err) )
+                    }
+                    else{
+                        // Updat post within the API
+                        fetchRequest( 'PUT', `posts/${idPostToEdit.value}`, { title: title.value, content: content.value } )
+                        .then( apiResponse => {
+                            // Update DOM
+                            document.querySelector(`[data-item-id="${idPostToEdit.value}"] p`).innerHTML = title.value;
+                            
+                        } )
+                        .catch( err => console.error(err) )
+                    }
+                    
                 }
+
+                // Reset Form
+                formSectionTitle.innerHTML = `Ajouter un article`
+                addPostForm.reset();
             })
         }
         
@@ -64,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const displayPosts = data => {
             for( let item of data ){
                 articlesList.innerHTML += `
-                    <li>
+                    <li data-item-id="${item.id}">
                         <p>${item.title}</p>
                         <a href="${item.id}" class="displayBtn">Afficher</a>
                         <a href="${item.id}" class="updateBtn">Mettre a jour</a>
@@ -72,6 +93,76 @@ document.addEventListener('DOMContentLoaded', () => {
                     </li>
                 `;
             };
+
+            getPostInteraction();
+        }
+
+        const getPostInteraction = () => {
+            // Get links
+            const displayLinks = document.querySelectorAll('.displayBtn');
+            const updateLinks = document.querySelectorAll('.updateBtn');
+            const deleteLinks = document.querySelectorAll('.deleteItem');
+
+            // Concat links
+            const interactionLinks = [...displayLinks, ...updateLinks, ...deleteLinks];
+
+            // Loop on  collection
+            for( let item of interactionLinks ){
+                // Check the item class
+                if( item.getAttribute('class') === 'displayBtn' ){
+                    item.addEventListener('click', event => {
+                        event.preventDefault();
+
+                        fetchRequest('GET' ,`posts/${item.getAttribute('href')}`)
+                        .then( apiResponse => displaySinglePost(apiResponse.data) )
+                        .catch( err => console.error(err))
+                    })
+                }
+                else if( item.getAttribute('class') === 'updateBtn' ){
+                    item.addEventListener('click', event => {
+                        event.preventDefault();
+
+                        fetchRequest('GET' ,`posts/${item.getAttribute('href')}`)
+                        .then( apiResponse => getPostEditForm(apiResponse.data) )
+                        .catch( err => console.error(err))
+                    })
+                }
+                else if( item.getAttribute('class') === 'deleteItem' ){
+                    item.addEventListener('click', event => {
+                        event.preventDefault();
+
+                        fetchRequest('DELETE', `posts/${item.getAttribute('href')}`)
+                        .then( apiResponse => {
+                            document.querySelector(`[data-item-id="${item.getAttribute('href')}"]`).remove()
+                        } )
+                        .catch( err => console.error(err))
+                    })
+                }
+            }
+        }
+
+        const displaySinglePost = data => {
+            // Add content in the popin
+            popin.innerHTML = `
+                <h2>${data.title}</h2>
+                <h2>${data.content}</h2>
+            `;
+
+            // Open the popin
+            popin.classList.add('open');
+
+            // Close the popin
+            popin.addEventListener('click', () => {
+                popin.classList.remove('open')
+            })
+        }
+
+        const getPostEditForm = data => {
+            // Add correct data in the form
+            formSectionTitle.innerHTML = `Mettre à jour l'article ID ${data.id}`
+            title.value = data.title;
+            content.value = data.content;
+            idPostToEdit.value = data.id;
         }
     //
 
