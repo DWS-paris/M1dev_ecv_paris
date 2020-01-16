@@ -1,3 +1,7 @@
+header, main, footer{
+    padding: 4rem;
+}
+
 main ul{
     display: flex;
     flex-wrap: wrap;

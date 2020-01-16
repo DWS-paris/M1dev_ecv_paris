@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 
     Delarations
     */
+        const myForm = document.querySelector('form');
+        const inputTag = document.querySelector('#tag');
         const urlInstagram = `https://www.instagram.com/explore/tags`;
         const mainTag = document.querySelector('main');
         const tagList = document.createElement('ul');
@@ -11,6 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 
     Methods/Functions
     */
+        const getFormSubmit = () => {
+            // Get form submit
+            myForm.addEventListener('submit', event => {
+                // Stop event propagation
+                event.preventDefault();
+
+                // Check form input
+                if( inputTag.value.length > 1 ){
+                    fetchInstagram(inputTag.value);
+                }
+            })
+        }
+
         const fetchInstagram = (tag = `javascript`) => {
             // Get request: fetch
             fetch(`${urlInstagram}/${tag}/?__a=1`)
@@ -38,6 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const displayTagList = collection => {
+            // Delete main tags
+            tagList.innerHTML = '';
+
             // Loop on colection
             for( let item of collection ){
                 //console.log(item)
@@ -55,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Add LI tag in UL tag
                 tagList.appendChild(listItem)
             }
+
+            
 
             // Add UL tag in MAIN tag
             mainTag.appendChild(tagList);
@@ -97,8 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 
     Start interface
     */ 
-        fetchInstagram();
+        getFormSubmit();
     //
-
-
 });
