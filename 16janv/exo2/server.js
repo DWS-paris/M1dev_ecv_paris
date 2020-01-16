@@ -7,8 +7,8 @@ Import
     const ejs = require('ejs'); 
     const path = require('path');
 
-    // Modules
-    const fetch = require('node-fetch');
+    // Inner
+    const fetchRequest = require('./services/fetch.service');
 //
 
 /* 
@@ -42,46 +42,114 @@ Config
             */
                 // CRUD: Create item
                 server.post( '/api/:endpoint', ( req, res ) => {
-                    const apiEndpoint = req.params['endpoint'];
-
-                    // Create new DB entry
-                    return new Promise( (resolve, reject) => {
-
-                        // Check body content
-                        //=> IF OK
-                        fetch( `http://localhost:3000/${apiEndpoint}`, {
-                            method: 'POST',
-                            body: JSON.stringify(req.body),
-                            headers: { 'Content-Type': 'application/json' }
+                    // Use fetch service
+                    fetchRequest('POST', req.params['endpoint'],req.body)
+                    .then( fetchedData => {
+                        return res.json({
+                            msg: "Item created",
+                            status: "201",
+                            data: fetchedData,
+                            error: null
                         })
-                        .then( data => {
-                            // Resolve Promise  data
-                            return resolve( res.json({
-                                status: 201,
-                                msg: 'Item created',
-                                data: data,
-                                error: null
-                            }))
+                    } )
+                    .catch( fetchError => {
+                        console.log(fetchError)
+                        return res.json({
+                            msg: "Item not created",
+                            status: "500",
+                            data: null,
+                            error: fetchError
                         })
-                        .catch( err => {
-                            // Reject Promise error
-                            return reject( res.json({
-                                status: 500,
-                                msg: 'Item not created',
-                                data: null,
-                                error: err
-                            }))
-                        })
-                    });
+                    })
                 })
 
                 // CRUD: Read one item
+                server.get( '/api/:endpoint/:id', (req, res) => {
+                    fetchRequest( 'GET', `${req.params['endpoint']}/${req.params['id']}` )
+                    .then( fetchedData => {
+                        return res.json({
+                            msg: "Item fetched",
+                            status: "200",
+                            data: fetchedData,
+                            error: null
+                        })
+                    } )
+                    .catch( fetchError => {
+                        console.log(fetchError)
+                        return res.json({
+                            msg: "Item not fetched",
+                            status: "500",
+                            data: null,
+                            error: fetchError
+                        })
+                    })
+                })
 
                 // CRUD: Read all items
+                server.get( '/api/:endpoint/', async (req, res) => {
+                    const fetchedData = await fetchRequest( 'GET', req.params['endpoint'])
+
+                    if( fetchedData === {} ){
+                        return res.json({
+                            msg: "Items fetched",
+                            status: "200",
+                            data: fetchedData,
+                            error: null
+                        })
+                    }
+                    else{
+                        return res.json({
+                            msg: "Items not fetched",
+                            status: "500",
+                            data: null,
+                            error: fetchedData
+                        })
+                    }
+                })
 
                 // CRUD: Update item by ID
+                server.put( '/api/:endpoint/:id', (req, res) => {
+                    fetchRequest( 'PUT', `${req.params['endpoint']}/${req.params['id']}`, req.body )
+                    .then( fetchedData => {
+                        return res.json({
+                            msg: "Item updated",
+                            status: "201",
+                            data: fetchedData,
+                            error: null
+                        })
+                    } )
+                    .catch( fetchError => {
+                        console.log(fetchError)
+                        return res.json({
+                            msg: "Item not updated",
+                            status: "500",
+                            data: null,
+                            error: fetchError
+                        })
+                    })
+                })
 
                 // CRUD: Delete item by ID
+                server.delete( '/api/:endpoint/:id', (req, res) => {
+                    fetchRequest( 'DELETE', `${req.params['endpoint']}/${req.params['id']}` )
+                    .then( fetchedData => {
+                        return res.json({
+                            msg: "Item deleted",
+                            status: "200",
+                            data: fetchedData,
+                            error: null
+                        })
+                    })
+                    .catch( fetchError => {
+                        console.log(fetchError)
+                        return res.json({
+                            msg: "Item not deleted",
+                            status: "500",
+                            data: null,
+                            error: fetchError
+                        })
+                    })
+                })
             //
 
 
