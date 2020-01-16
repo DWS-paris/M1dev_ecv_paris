@@ -1,0 +1,36 @@
+header, main, footer{
+    padding: 4rem;
+}
+
+main li p{
+    margin: 0;
+}
+
+main li{
+    margin-bottom: 1rem;
+}
+
+.instagramTag{
+    word-break: break-all;
+    width: calc(33.3333% - 3rem);
+    padding: 1rem;
+}
+
+li{
+    list-style: none;
+}
+
+#popin {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    background: #ffffffb8;
+}
+
+#popin.open{
+    display: initial;
+}

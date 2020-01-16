@@ -87,9 +87,19 @@ Config
 
                 // CRUD: Read all items
                 server.get( '/api/:endpoint/', async (req, res) => {
+                    console.log('get all')
                     const fetchedData = await fetchRequest( 'GET', req.params['endpoint'])
 
-                    if( fetchedData === {} ){
+                    return res.json({
+                        msg: "Items fetched",
+                        status: "200",
+                        data: fetchedData,
+                        error: null
+                    })
+
+
+
+                    /* if( fetchedData === {} ){
                         return res.json({
                             msg: "Items fetched",
                             status: "200",
@@ -104,7 +114,7 @@ Config
                             data: null,
                             error: fetchedData
                         })
-                    }
+                    } */
                 })
 
                 // CRUD: Update item by ID

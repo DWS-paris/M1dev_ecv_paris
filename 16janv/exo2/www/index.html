@@ -5,8 +5,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Node Server</title>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"> 
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css"> 
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css">
+        <link rel="stylesheet" href="./css/style.css">
     </head>
     <body>
-        <h1>Node server</h1>
+        <header>
+            <h1>Node server</h1>
+        </header>
+
+        <main>
+            <section>
+                <h2>Ajouter un article</h2>
+                <form action="#" id="addPostForm">
+                    <input type="text" name="title" id="title" required minlength="2">
+                    <textarea name="content" id="content" required minlength="2"></textarea>
+                    <button type="submit">Ajouter</button>
+                </form>
+            </section>
+
+            <section>
+                <ul id="articlesList"></ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>Under WTFPL Julien Noyer 2020</p>
+        </footer>
+        
+        <script src="./js/app.js"></script>
     </body>
 </html>
