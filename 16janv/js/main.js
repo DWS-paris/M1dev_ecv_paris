@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     Delarations
     */
         const urlInstagram = `https://www.instagram.com/explore/tags`;
+        const mainTag = document.querySelector('main');
+        const tagList = document.createElement('ul');
     //
 
     /* 
@@ -26,12 +28,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 //
             })
             .then( jsonData => {
-                console.log(jsonData);
+                displayTagList(jsonData.graphql.hashtag.edge_hashtag_to_media.edges);
             })
             .catch( fetchError => {
                 console.error(fetchError);
             });
         };
+
+        const displayTagList = collection => {
+            // Loop on colection
+            for( let item of collection ){
+                //console.log(item)
+                // Create LI tag
+                let listItem = document.createElement('li');
+                // Add CLASS on LI tag
+                listItem.classList.add('instagramTag');
+
+                // Add content in LI tag
+                listItem.innerHTML = `
+                    <p>${item.node.edge_media_to_caption.edges[0].node.text}</p>
+                    <a href="${item.node.display_url}">Voir l'image</a>
+                `;
+
+                // Add LI tag in UL tag
+                tagList.appendChild(listItem)
+            }
+
+            // Add UL tag in MAIN tag
+            mainTag.appendChild(tagList)
+        }
     //
 
     /* 

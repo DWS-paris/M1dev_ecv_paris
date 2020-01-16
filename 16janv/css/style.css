@@ -1,0 +1,15 @@
+main ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.instagramTag{
+    word-break: break-all;
+    width: calc(33.3333% - 3rem);
+    padding: 1rem;
+}
+
+li{
+    list-style: none;
+}
